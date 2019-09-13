@@ -50,7 +50,7 @@ var _ = Describe("Bootstrap File", func() {
 			// then
 			Expect(err).ToNot(HaveOccurred())
 			// and
-			Expect(filename).To(Equal(filepath.Join(configDir, "bootstrap.yaml")))
+			Expect(filename).To(Equal(filepath.Join(configDir, "example", "bootstrap.yaml")))
 
 			// when
 			actual, err := ioutil.ReadFile(filename)

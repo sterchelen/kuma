@@ -5,11 +5,12 @@ import (
 	"io"
 	"os/exec"
 
-	"github.com/gogo/protobuf/proto"
 	"github.com/pkg/errors"
 
 	kuma_dp "github.com/Kong/kuma/pkg/config/app/kuma-dp"
 	"github.com/Kong/kuma/pkg/core"
+
+	envoy_bootstrap "github.com/envoyproxy/go-control-plane/envoy/config/bootstrap/v2"
 )
 
 var (
@@ -21,7 +22,7 @@ var (
 	newConfigFile = GenerateBootstrapFile
 )
 
-type BootstrapConfigFactoryFunc func(cfg kuma_dp.Config) (proto.Message, error)
+type BootstrapConfigFactoryFunc func(cfg kuma_dp.Config) (*envoy_bootstrap.Bootstrap, error)
 
 type Opts struct {
 	Config    kuma_dp.Config

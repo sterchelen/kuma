@@ -3,14 +3,14 @@ package envoy
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/Kong/kuma/pkg/xds/bootstrap/rest"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/Kong/kuma/pkg/xds/bootstrap/rest"
 
 	kuma_dp "github.com/Kong/kuma/pkg/config/app/kuma-dp"
 	util_proto "github.com/Kong/kuma/pkg/util/proto"
 	envoy_bootstrap "github.com/envoyproxy/go-control-plane/envoy/config/bootstrap/v2"
-	"github.com/gogo/protobuf/proto"
 	"github.com/pkg/errors"
 )
 
@@ -23,7 +23,7 @@ func NewRemoteBootstrapGenerator(client *http.Client) BootstrapConfigFactoryFunc
 	return rb.Generate
 }
 
-func (b *remoteBootstrap) Generate(cfg kuma_dp.Config) (proto.Message, error) {
+func (b *remoteBootstrap) Generate(cfg kuma_dp.Config) (*envoy_bootstrap.Bootstrap, error) {
 	url := cfg.ControlPlane.BootstrapServer.URL + "/bootstrap"
 	request := rest.BootstrapRequest{
 		Mesh: cfg.Dataplane.Mesh,

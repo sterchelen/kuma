@@ -11,8 +11,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gogo/protobuf/proto"
-
 	envoy_core "github.com/envoyproxy/go-control-plane/envoy/api/v2/core"
 	envoy_bootstrap "github.com/envoyproxy/go-control-plane/envoy/config/bootstrap/v2"
 
@@ -68,14 +66,14 @@ var _ = Describe("Envoy", func() {
 					ConfigDir:  configDir,
 				},
 			}
-			sampleConfig := func(kuma_dp.Config) (proto.Message, error) {
+			sampleConfig := func(kuma_dp.Config) (*envoy_bootstrap.Bootstrap, error) {
 				return &envoy_bootstrap.Bootstrap{
 					Node: &envoy_core.Node{
 						Id: "example",
 					},
 				}, nil
 			}
-			expectedConfigFile := filepath.Join(configDir, "bootstrap.yaml")
+			expectedConfigFile := filepath.Join(configDir, "example", "bootstrap.yaml")
 
 			By("starting a mock dataplane")
 			// when
@@ -139,7 +137,7 @@ var _ = Describe("Envoy", func() {
 					ConfigDir:  configDir,
 				},
 			}
-			sampleConfig := func(kuma_dp.Config) (proto.Message, error) {
+			sampleConfig := func(kuma_dp.Config) (*envoy_bootstrap.Bootstrap, error) {
 				return &envoy_bootstrap.Bootstrap{}, nil
 			}
 

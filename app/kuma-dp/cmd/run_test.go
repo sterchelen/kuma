@@ -15,7 +15,6 @@ import (
 	kumadp "github.com/Kong/kuma/pkg/config/app/kuma-dp"
 	util_proto "github.com/Kong/kuma/pkg/util/proto"
 	envoy_bootstrap "github.com/envoyproxy/go-control-plane/envoy/config/bootstrap/v2"
-	"github.com/gogo/protobuf/proto"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/ginkgo/extensions/table"
@@ -32,7 +31,7 @@ var _ = Describe("run", func() {
 	BeforeEach(func() {
 		backupSetupSignalHandler = core.SetupSignalHandler
 		backupBootstrapGenerator = bootstrapGenerator
-		bootstrapGenerator = func(cfg kumadp.Config) (proto.Message, error) {
+		bootstrapGenerator = func(cfg kumadp.Config) (*envoy_bootstrap.Bootstrap, error) {
 			bootstrap := envoy_bootstrap.Bootstrap{}
 			respBytes, err := ioutil.ReadFile(filepath.Join("testdata", "bootstrap-config.golden.yaml"))
 			Expect(err).ToNot(HaveOccurred())
