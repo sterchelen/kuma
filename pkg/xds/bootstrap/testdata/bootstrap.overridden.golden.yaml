@@ -17,6 +17,8 @@ dynamicResources:
 node:
   cluster: backend
   id: default.dp-1.default
+  metadata:
+    dataplaneTokenPath: /tmp/token
 staticResources:
   clusters:
     - connectTimeout: 1s

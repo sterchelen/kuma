@@ -69,8 +69,9 @@ var _ = Describe("bootstrapGenerator", func() {
 
 			// when
 			bootstrapConfig, err := generator.Generate(context.Background(), types.BootstrapRequest{
-				Mesh: "mesh",
-				Name: "name.namespace",
+				Mesh:               "mesh",
+				Name:               "name.namespace",
+				DataplaneTokenPath: "/tmp/token",
 			})
 			// then
 			Expect(err).ToNot(HaveOccurred())

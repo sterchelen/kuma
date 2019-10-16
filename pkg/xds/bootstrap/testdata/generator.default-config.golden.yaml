@@ -11,6 +11,8 @@ dynamicResources:
 node:
   cluster: backend
   id: mesh.name.namespace
+  metadata:
+    dataplaneTokenPath: /tmp/token
 staticResources:
   clusters:
     - connectTimeout: 1s
