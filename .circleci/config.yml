@@ -12,6 +12,16 @@ reusable:
   vm_images:
   - &ubuntu_vm_image "ubuntu-1604:201903-01"
 
+  snippets:
+
+    # apparently, a job can run on a tag only if it has an explicit configuration for tag filters
+    release_workflow_filters: &release_workflow_filters
+      filters:
+        branches:
+          ignore: /.*/
+        tags:
+          only: /.*/
+
 executors:
   golang:
     docker:
@@ -445,14 +455,6 @@ jobs:
     - run:
         name: Push Docker
         command: ./tools/releases/docker.sh --push --version $CIRCLE_TAG
-
-# reusable YAML snippet
-release_workflow_filters: &release_workflow_filters
-  filters:
-    branches:
-      ignore: /.*/
-    tags:
-      only: /.*/
 
 #
 # Below, the tag filter needs to be in all jobs
